@@ -1,6 +1,7 @@
 import math
 import multiprocessing as mp
 import numpy as np
+import time
 
 #Funcion merge que ordena el array en su totalidad
 def merge(*args):
@@ -36,8 +37,13 @@ def merge_sort(X):
 
 def Orden(X):
     cores = mp.cpu_count()
+    print("Cores", cores)
     seccion = math.ceil(len(X) / cores)
+    print("Size", seccion)
     pool = mp.Pool(processes=cores)
+    pool
+    print (X)
+
     X = [X[i * seccion:(i + 1) * seccion] for i in range(cores)]
     X = pool.map(merge_sort, X)
 
@@ -50,10 +56,15 @@ def Orden(X):
 
 
 if __name__ == '__main__':
-    n = 218060108
+    n = 8
+    
     X = np.random.randint(1, 256, n)  # Genero un array de tamaño n con valores aleatorios del 1 al 256
 
     print('\n\nEl Array original es asi\n\n', X)
-
-
+    parallel_time = 0
+    start = time.perf_counter()
     print('\n\nEl Array ordenado ha quedado asi\n\n', Orden(X))
+    parallel_time += time.perf_counter() - start
+    print('Average Parallel Time: {:.2f} ms'.format(parallel_time*1000))
+
+
