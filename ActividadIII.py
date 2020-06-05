@@ -56,7 +56,7 @@ def Orden(X):
 
 
 if __name__ == '__main__':
-    n = 8
+    n = 30
     
     X = np.random.randint(1, 256, n)  # Genero un array de tamaño n con valores aleatorios del 1 al 256
 
